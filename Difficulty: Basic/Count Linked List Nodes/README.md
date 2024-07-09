@@ -1,0 +1,11 @@
+<h2><a href="https://www.geeksforgeeks.org/problems/count-nodes-of-linked-list/1?itm_source=geeksforgeeks&itm_medium=article&itm_campaign=bottom_sticky_on_article">Count Linked List Nodes</a></h2><h3>Difficulty Level : Difficulty: Basic</h3><hr><div class="problems_problem_content__Xm_eO"><p><span style="font-size: 18px;">Given a singly linked list. The task is to find the length of the linked list, where length is defined as the number of nodes in the linked list.</span></p>
+<p><strong><span style="font-size: 18px;">Examples :</span></strong></p>
+<pre><strong><span style="font-size: 18px;">Input: </span></strong><span style="font-size: 18px;">LinkedList : 1-&gt;2-&gt;3-&gt;4-&gt;5
+<strong>Output: </strong>5<strong>
+Explanation: </strong>Count of nodes in the linked list is 5, which is its length.</span>
+</pre>
+<pre><strong><span style="font-size: 18px;">Input: </span></strong><span style="font-size: 18px;">LinkedList : 2-&gt;4-&gt;6-&gt;7-&gt;5-&gt;1-&gt;0
+<strong>Output: </strong>7<strong>
+Explanation: </strong>Count of nodes in the linked list is 7. Hence, the output is 7.</span></pre>
+<p><span style="font-size: 18px;"><strong>Expected Time Complexity</strong>: O(n)<br><strong>Expected Auxilliary Space</strong>: O(1)</span></p>
+<p><span style="font-size: 18px;"><strong>Constraints:</strong><br>1 &lt;= n &lt;= 10<sup>5</sup><br>1 &lt;= value &lt;= 10<sup>3</sup></span></p></div><br><p><span style=font-size:18px><strong>Topic Tags : </strong><br><code>Linked List</code>&nbsp;<code>Data Structures</code>&nbsp;
