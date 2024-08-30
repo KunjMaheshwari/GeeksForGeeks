@@ -41,33 +41,39 @@ class GfG {
 }
 // } Driver Code Ends
 
-
 class Solution {
     // Function to find the maximum profit and the number of jobs done.
     int[] JobScheduling(Job arr[], int n) {
+        // Sorting jobs in descending order of profit
         Arrays.sort(arr, (a, b) -> b.profit - a.profit);
 
+        // To keep track of free time slots
         int maxDeadline = 0;
-        for (Job job : arr) {
-            maxDeadline = Math.max(maxDeadline, job.deadline);
+        for (int i = 0; i < n; i++) {
+            maxDeadline = Math.max(maxDeadline, arr[i].deadline);
         }
 
-        boolean[] slot = new boolean[maxDeadline + 1];
-        int jobCount = 0;
-        int totalProfit = 0;
+        int[] slot = new int[maxDeadline]; // To keep track of free time slots
+        Arrays.fill(slot, -1); // Initialize all slots to be free
 
-        for (Job job : arr) {
-            for (int j = job.deadline; j > 0; j--) {
-                if (!slot[j]) {
-                    slot[j] = true;
-                    jobCount++;
-                    totalProfit += job.profit;
+        int totalProfit = 0;
+        int count = 0;
+
+        // Iterate through all jobs
+        for (int i = 0; i < n; i++) {
+            // Find a free slot for this job (we start from the last possible slot)
+            for (int j = arr[i].deadline - 1; j >= 0; j--) {
+                // If slot is free
+                if (slot[j] == -1) {
+                    slot[j] = arr[i].id; // Assign the job to this slot
+                    totalProfit += arr[i].profit;
+                    count++;
                     break;
                 }
             }
         }
 
-        return new int[]{jobCount, totalProfit};
+        return new int[]{count, totalProfit};
     }
 }
 
@@ -80,4 +86,5 @@ class Job {
         this.profit = z; 
     }
 }
+
 */
