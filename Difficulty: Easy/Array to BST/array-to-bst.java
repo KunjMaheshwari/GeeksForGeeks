@@ -1,6 +1,4 @@
 //{ Driver Code Starts
-
-
 import java.io.*;
 import java.util.*;
 
@@ -39,19 +37,32 @@ public class Main {
 
     public static boolean isBalanced(Node root) { return height(root) != -1; }
 
+    public static void inorder(Node root, List<Integer> v) {
+        if (root == null) return;
+        inorder(root.left, v);
+        v.add(root.data);
+        inorder(root.right, v);
+    }
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int T = Integer.parseInt(br.readLine().trim());
         while (T-- > 0) {
-            // int n = Integer.parseInt(br.readLine().trim());
-            int[] nums = Arrays.stream(br.readLine().trim().split(" "))
-                             .mapToInt(Integer::parseInt)
-                             .toArray();
+            String input = br.readLine().trim();
+            String[] inputArr = input.split(" ");
+            int[] arr = new int[inputArr.length];
+            for (int i = 0; i < inputArr.length; i++) {
+                arr[i] = Integer.parseInt(inputArr[i]);
+            }
 
             Solution obj = new Solution();
-            Node root = obj.sortedArrayToBST(nums);
+            Node root = obj.sortedArrayToBST(arr);
+            List<Integer> v = new ArrayList<>();
+            inorder(root, v);
 
-            if (!isValidBST(root)) {
+            int[] vrr = v.stream().mapToInt(Integer::intValue).toArray();
+            boolean isBST = isValidBST(root);
+            if (!isBST || !Arrays.equals(vrr, arr)) {
                 System.out.println("false");
                 continue;
             }
@@ -72,17 +83,20 @@ public class Main {
 // User function Template for Java
 
 class Solution {
+    public static Node createBst(int nums[], int start, int end){
+        if(start > end){
+            return null;
+        }
+        int mid = (start+end)/2;
+        
+        Node root = new Node(nums[mid]);
+        root.left = createBst(nums, start, mid-1);
+        root.right = createBst(nums, mid+1, end);
+        
+        return root;
+    }
     public Node sortedArrayToBST(int[] nums) {
         // Code here
-        Node root=new Node(2);
-
-Node left=new Node(1);
-
-Node right=new Node(3);
-
-root.left=left;
-
-root.right=right;        
- return root;
+        return createBst(nums, 0, nums.length-1);
     }
 }
