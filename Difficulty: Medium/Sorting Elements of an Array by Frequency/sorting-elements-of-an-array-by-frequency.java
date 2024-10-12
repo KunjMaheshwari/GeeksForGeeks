@@ -1,77 +1,61 @@
-//{ Driver Code Starts
-// Initial Template for Java
-
-import java.io.*;
+import java.util.*;
 import java.lang.*;
-import java.util.*;
-import java.util.Map.Entry;
-
-
-// } Driver Code Ends
-// User function Template for Java
-import java.util.*;
-
-class Solution {
-    // Function to sort the array according to the frequency of elements.
-    public ArrayList<Integer> sortByFreq(int arr[]) {
-        // Sort the array first to handle elements with the same frequency
-        Arrays.sort(arr);
+import java.io.*;
+class GFG
+ {
+	public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int T = sc.nextInt(); // Number of test cases
         
-        // Create a frequency map
-        HashMap<Integer, Integer> map = new HashMap<>();
-        for (int i : arr) {
-            map.put(i, map.getOrDefault(i, 0) + 1);
-        }
-        
-        // Convert the map to a list of elements
-        List<Map.Entry<Integer, Integer>> list = new ArrayList<>(map.entrySet());
-        
-        // Sort the list by frequency, then by value
-        Collections.sort(list, (a, b) -> {
-            if (b.getValue().equals(a.getValue())) {
-                return a.getKey() - b.getKey(); // If frequencies are the same, sort by value
-            } else {
-                return b.getValue() - a.getValue(); // Sort by frequency (descending)
+        while (T-- > 0) {
+            int N = sc.nextInt(); // Size of the array
+            int[] arr = new int[N];
+            
+            // Input array
+            for (int i = 0; i < N; i++) {
+                arr[i] = sc.nextInt();
             }
-        });
-        
-        // Create a result list
-        ArrayList<Integer> newArr = new ArrayList<>();
-        
-        // Add elements to the result list according to their frequency
-        for (Map.Entry<Integer, Integer> entry : list) {
-            for (int i = 0; i < entry.getValue(); i++) {
-                newArr.add(entry.getKey());
+            
+            // Step 1: Create a HashMap to store the frequency of each element
+            HashMap<Integer, Integer> map = new HashMap<>();
+            for (int i = 0; i < N; i++) {
+                map.put(arr[i], map.getOrDefault(arr[i], 0) + 1);
             }
+
+            // Step 2: Create a list to sort the elements based on frequency
+            List<Integer> list = new ArrayList<>();
+            for (int i = 0; i < N; i++) {
+                list.add(arr[i]);
+            }
+
+            // Step 3: Sort the list using a custom comparator
+            Collections.sort(list, new Comparator<Integer>() {
+                @Override
+                public int compare(Integer a, Integer b) {
+                    int freqA = map.get(a);
+                    int freqB = map.get(b);
+                    // Sort by frequency in descending order
+                    if (freqA != freqB) {
+                        return freqB - freqA;
+                    }
+                    // If frequencies are the same, sort by value in ascending order
+                    return a - b;
+                }
+            });
+
+            // Step 4: Print the sorted list (to avoid duplicates)
+            Set<Integer> printed = new HashSet<>();
+            for (int num : list) {
+                if (!printed.contains(num)) {
+                    for (int i = 0; i < map.get(num); i++) {
+                        System.out.print(num + " ");
+                    }
+                    printed.add(num);
+                }
+            }
+            System.out.println(); // Move to the next line for each test case
         }
-        
-        return newArr;
-    }
+
+        sc.close();
+	}
 }
-
-
-//{ Driver Code Starts.
-
-class Driverclass {
-    public static void main(String[] args) throws NumberFormatException, IOException {
-        BufferedReader sc = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(sc.readLine());
-        while (n != 0) {
-            String input = sc.readLine();
-            String[] inputs = input.split(" ");
-            int[] arr = new int[inputs.length];
-
-            for (int i = 0; i < inputs.length; i++) {
-                arr[i] = Integer.parseInt(inputs[i]);
-            }
-
-            ArrayList<Integer> ans = new ArrayList<Integer>();
-            ans = new Solution().sortByFreq(arr);
-            for (int i = 0; i < ans.size(); i++) System.out.print(ans.get(i) + " ");
-            System.out.println();
-            n--;
-        }
-    }
-}
-
-// } Driver Code Ends
