@@ -9,39 +9,22 @@ import java.util.*;
 
 class Solution {
     public int SumofMiddleElements(int[] arr1, int[] arr2) {
-        int n = arr1.length;
-        int m = arr2.length;
+        // code here
+        ArrayList<Integer> arr = new ArrayList<>();
+        for(int i=0;i<arr1.length;i++){
+            arr.add(arr1[i]);
+        }
         
-        int[] merged = new int[n + m];
-        int i = 0, j = 0, k = 0;
-
-        // Merge the two arrays
-        while (i < n && j < m) {
-            if (arr1[i] < arr2[j]) {
-                merged[k++] = arr1[i++];
-            } else {
-                merged[k++] = arr2[j++];
-            }
+        for(int i=0;i<arr2.length;i++){
+            arr.add(arr2[i]);
         }
-
-        // If there are remaining elements in arr1
-        while (i < n) {
-            merged[k++] = arr1[i++];
-        }
-
-        // If there are remaining elements in arr2
-        while (j < m) {
-            merged[k++] = arr2[j++];
-        }
-
-        // Since n and m are the same, the length of the merged array is even
-        int middle1 = merged[(n + m) / 2 - 1];
-        int middle2 = merged[(n + m) / 2];
-
-        return middle1 + middle2;
+        
+        Collections.sort(arr);
+        
+        int mid = arr.size()/2;
+        return arr.get(mid) + arr.get(mid-1);
     }
 }
-
 
 //{ Driver Code Starts.
 public class Main {
