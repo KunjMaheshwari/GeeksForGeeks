@@ -28,14 +28,17 @@ class GFG
 class Solution
 {
    
-    String modify(String s)
+    String modify(String S)
     {
         // your code here
-        String str[] = s.trim().split("\\s+");
-        String out = "";
-        for(int i=0;i<str.length;i++){
-            out += str[i];
+        StringBuilder sb = new StringBuilder();
+        for(int i=0;i<S.length();i++){
+            char ch = S.charAt(i);
+            if(ch != ' '){
+                sb.append(ch);
+            }
         }
-        return out;
+        return sb.toString();
+        
     }
 }
