@@ -23,17 +23,14 @@ class Node{
 }*/
 
 class Solution {
-    // Function to count nodes of a linked list.
     public int getCount(Node head) {
-        // code here
-        int size = 0;
-        Node temp = head;
-        
-        while(temp != null){
-            temp = temp.next;
-            size++;
-        }
-        return size;
+        int cnt = 0;
+// Traverse until last node become null and count
+       while(head != null){
+           head = head.next;
+           cnt++;
+       }
+       return cnt;
     }
 }
 
