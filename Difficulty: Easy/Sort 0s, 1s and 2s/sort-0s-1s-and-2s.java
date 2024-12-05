@@ -11,11 +11,9 @@ class GFG {
         while (t-- > 0) {
             String input = br.readLine();
             String[] inputArray = input.split("\\s+");
-            ArrayList<Integer> a = new ArrayList<>();
+            int a[] = new int[inputArray.length];
 
-            for (String s : inputArray) {
-                a.add(Integer.parseInt(s));
-            }
+            for (int i = 0; i < a.length; i++) a[i] = Integer.parseInt(inputArray[i]);
 
             Solution ob = new Solution();
             ob.sort012(a);
@@ -24,43 +22,46 @@ class GFG {
                 System.out.print(num + " ");
             }
             System.out.println();
+            System.out.println("~");
         }
     }
 }
+
 
 // } Driver Code Ends
 
 
+
+
 class Solution {
     // Function to sort an array of 0s, 1s, and 2s
-    public void sort012(ArrayList<Integer> arr) {
+    public void swap(int[] arr,int start,int end){
+        int temp = arr[start];
+        arr[start] = arr[end];
+        arr[end] = temp;
+    }
+    public void sort012(int[] arr) {
         // code here
-        int low = 0, mid = 0, high = arr.size() - 1;
+        int n =arr.length;
+        int low = 0;
+        int high = n-1;
+        int mid = 0;
         
-        while (mid <= high) {
-            switch (arr.get(mid)) {
-                case 0:
-                    // Swap arr[low] and arr[mid], then increment low and mid
-                    int tempLow = arr.get(low);
-                    arr.set(low, arr.get(mid));
-                    arr.set(mid, tempLow);
-                    low++;
-                    mid++;
-                    break;
-                    
-                case 1:
-                    // No swapping needed, just increment mid
-                    mid++;
-                    break;
-                    
-                case 2:
-                    // Swap arr[mid] and arr[high], then decrement high
-                    int tempHigh = arr.get(high);
-                    arr.set(high, arr.get(mid));
-                    arr.set(mid, tempHigh);
-                    high--;
-                    break;
+        while(mid<=high){
+            if(arr[mid]==0){
+                swap(arr,low,mid);
+                low++;
+                mid++;
+            }else if(arr[mid]==1){
+                mid++;
+            }else{
+                swap(arr,mid,high);
+                high--;
             }
         }
     }
 }
+
+
+//{ Driver Code Starts.
+// } Driver Code Ends
