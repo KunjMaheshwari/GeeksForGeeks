@@ -29,6 +29,8 @@ public class GFG {
             int key = Integer.parseInt(in.readLine().trim());
 
             out.println(new Solution().search(arr, key));
+
+            out.println("~");
         }
         out.close();
     }
