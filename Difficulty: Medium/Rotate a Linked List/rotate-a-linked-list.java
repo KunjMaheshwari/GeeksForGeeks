@@ -17,51 +17,57 @@ class Node {
 
 // } Driver Code Ends
 /* node of linked list:
-class Node {
+
+class Node{
     int data;
     Node next;
-
-    Node(int d) {
-        data = d;
-        next = null;
+    Node(int d){
+        data=d;
+        next=null;
     }
 }
+
 */
 
 class Solution {
-    // Function to rotate a linked list.
     public Node rotate(Node head, int k) {
-        // If head is null or k is 0, no rotation is needed
-        if (head == null || k == 0) return head;
-
-        Node newHead = head, lastNode = head, newHeadPrev = null;
-
-        // Traverse k nodes to find the new head
-        while (k-- > 0) {
-            newHeadPrev = newHead;
-            newHead = newHead.next;
+        // add code here
+        if (head == null || head.next == null || k == 0) {
+            return head; // No rotation needed
         }
 
-        // If newHead is null, it means k is equal to the length of the list
-        if (newHead == null) return head;
-
-        lastNode = newHead;
-
-        // Find the last node
-        while (lastNode.next != null) {
-            lastNode = lastNode.next;
+        // Find the length of the linked list
+        Node curr = head;
+        int len = 1;
+        while (curr.next != null) {
+            curr = curr.next;
+            len++;
         }
 
-        // Connect last node to the old head to form a circular list
-        lastNode.next = head;
+        // Update k to avoid unnecessary rotations
+        k = k % len;
+        if (k == 0) {
+            return head; // No rotation needed
+        }
 
-        // Break the link before the new head
-        newHeadPrev.next = null;
+        // Connect the last node to the head to form a circular list
+        curr.next = head;
+
+        // Traverse to the k-th node
+        Node newTail = head;
+        for (int i = 1; i < k; i++) {
+            newTail = newTail.next;
+        }
+
+        // The node after newTail becomes the new head
+        Node newHead = newTail.next;
+
+        // Break the circular connection
+        newTail.next = null;
 
         return newHead;
     }
 }
-
 
 
 //{ Driver Code Starts.
@@ -104,6 +110,8 @@ public class GFG {
             Solution ob = new Solution();
             head = ob.rotate(head, k);
             printList(head);
+
+            System.out.println("~");
         }
     }
 }
