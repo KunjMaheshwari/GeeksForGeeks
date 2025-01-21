@@ -25,7 +25,9 @@ class GFG{
             long ans = ob.findMinSum(A,B,N);
             System.out.println(ans);
             t--;
-        }
+        
+System.out.println("~");
+}
     }
 }
 // } Driver Code Ends
@@ -38,11 +40,11 @@ class Solution {
         Arrays.sort(A);
         Arrays.sort(B);
         
-        long minDiff = 0;
+        long ans = 0;
         
         for(int i=0;i<A.length;i++){
-            minDiff += (long)Math.abs(A[i] - B[i]);
+            ans += (long)Math.abs(A[i] - B[i]);
         }
-        return minDiff;
+        return ans;
     }
 }
