@@ -1,15 +1,16 @@
 //{ Driver Code Starts
 // Initial Template for Java
 
-import java.util.LinkedList;
-import java.util.Queue;
 import java.io.*;
 import java.util.*;
+import java.util.LinkedList;
+import java.util.Queue;
 
 class Node {
     int data;
     Node left;
     Node right;
+
     Node(int data) {
         this.data = data;
         left = null;
@@ -74,6 +75,7 @@ class GfG {
 
         return root;
     }
+
     static void printInorder(Node root) {
         if (root == null) return;
 
@@ -84,8 +86,7 @@ class GfG {
     }
 
     public static void main(String[] args) throws IOException {
-        BufferedReader br =
-            new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         int t = Integer.parseInt(br.readLine());
 
@@ -95,6 +96,8 @@ class GfG {
             Solution g = new Solution();
             System.out.println(g.diameter(root));
             t--;
+
+            System.out.println("~");
         }
     }
 }
@@ -117,35 +120,32 @@ class GfG {
 
 class Solution {
     // Function to return the diameter of a Binary Tree.
-    public static class Info {
+    static class Info{
         int diam;
         int ht;
-        
-        public Info(int diam, int ht) {
+
+        public Info(int diam, int ht){
             this.diam = diam;
             this.ht = ht;
         }
     }
     
-    int diameter(Node root) {
-        // Your code here
-        return answer(root).diam;
-    }
-    
-    public static Info answer(Node root) {
-        if (root == null) {
+    public static Info diameterHelper(Node root){
+        if(root == null){
             return new Info(0, 0);
         }
         
-        Info leftInfo = answer(root.left);
-        Info rightInfo = answer(root.right);
+        Info leftInfo = diameterHelper(root.left);
+        Info rightInfo = diameterHelper(root.right);
         
-        // Calculate the diameter at the current node
-        int diam = Math.max(Math.max(leftInfo.diam, rightInfo.diam), leftInfo.ht + rightInfo.ht + 1);
-        
-        // Calculate the height of the current node
-        int ht = Math.max(leftInfo.ht, rightInfo.ht) + 1;
+        int diam = Math.max(Math.max(leftInfo.diam, rightInfo.diam), leftInfo.ht + rightInfo.ht);
+        int ht = Math.max(leftInfo.ht, rightInfo.ht)+1;
         
         return new Info(diam, ht);
+    }
+    
+    int diameter(Node root) {
+        // Your code here
+        return diameterHelper(root).diam;
     }
 }
