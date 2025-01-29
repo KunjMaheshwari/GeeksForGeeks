@@ -10,45 +10,40 @@ import java.util.Queue;
 // } Driver Code Ends
 // User function Template for Java
 
-// class Node {
-//     int data;
-//     Node left;
-//     Node right;
-
-//     Node(int data) {
-//         this.data = data;
-//         left = null;
-//         right = null;
-//     }
-// }
+/*
+class Node{
+    int data;
+    Node left;
+    Node right;
+    Node(int data){
+        this.data = data;
+        left=null;
+        right=null;
+    }
+}
+*/
 
 class Solution {
-    // Helper class to store the node and its horizontal distance from the root
-    static class Info {
-        Node node;
+    // Function to return a list of nodes visible from the top view
+    // from left to right in Binary Tree.
+    static class Info{
         int hd;
-
-        public Info(Node node, int hd) {
-            this.node = node;
+        Node node;
+        
+        public Info(int hd, Node node){
             this.hd = hd;
+            this.node = node;
         }
     }
-
-    // Function to return a list of nodes visible from the top view from left to right
     static ArrayList<Integer> topView(Node root) {
+        // code here
         ArrayList<Integer> result = new ArrayList<>();
-        if (root == null) {
-            return result;
-        }
-
-        // Queue to store nodes along with their horizontal distance
+        
         Queue<Info> q = new LinkedList<>();
-        // Map to store the top view nodes
         TreeMap<Integer, Integer> map = new TreeMap<>();
 
-        // Add root node to queue with horizontal distance 0
-        q.add(new Info(root, 0));
-
+        q.add(new Info(0, root));
+        
         while (!q.isEmpty()) {
             Info curr = q.remove();
             int hd = curr.hd;
@@ -61,19 +56,17 @@ class Solution {
 
             // Add left child with horizontal distance hd-1
             if (node.left != null) {
-                q.add(new Info(node.left, hd - 1));
+                q.add(new Info(hd - 1, node.left));
             }
 
             // Add right child with horizontal distance hd+1
             if (node.right != null) {
-                q.add(new Info(node.right, hd + 1));
+                q.add(new Info(hd + 1, node.right));
             }
         }
 
         // Add all the values in the map to the result list
-        for (int value : map.values()) {
-            result.add(value);
-        }
+        result.addAll(map.values());
 
         return result;
     }
@@ -176,6 +169,8 @@ public class Tree {
             System.out.println();
 
             t--;
+
+            System.out.println("~");
         }
     }
 }
