@@ -105,9 +105,8 @@ class GfG {
 // } Driver Code Ends
 
 
-// User function Template for Java
-
-/*class Node {
+/*
+class Node {
     int data;
     Node left;
     Node right;
@@ -116,36 +115,36 @@ class GfG {
         left = null;
         right = null;
     }
-}*/
+}
+*/
 
 class Solution {
-    // Function to return the diameter of a Binary Tree.
-    static class Info{
-        int diam;
+    static class Info {
         int ht;
+        int diam;
 
-        public Info(int diam, int ht){
-            this.diam = diam;
+        public Info(int ht, int diam) {
             this.ht = ht;
+            this.diam = diam;
         }
     }
-    
-    public static Info diameterHelper(Node root){
-        if(root == null){
-            return new Info(0, 0);
-        }
-        
-        Info leftInfo = diameterHelper(root.left);
-        Info rightInfo = diameterHelper(root.right);
-        
-        int diam = Math.max(Math.max(leftInfo.diam, rightInfo.diam), leftInfo.ht + rightInfo.ht);
-        int ht = Math.max(leftInfo.ht, rightInfo.ht)+1;
-        
-        return new Info(diam, ht);
-    }
-    
+
     int diameter(Node root) {
-        // Your code here
         return diameterHelper(root).diam;
     }
+
+    private Info diameterHelper(Node root) {
+        if (root == null) {
+            return new Info(0, 0);
+        }
+
+        Info leftInfo = diameterHelper(root.left);
+        Info rightInfo = diameterHelper(root.right);
+
+        int finalHeight = Math.max(leftInfo.ht, rightInfo.ht) + 1;
+        int finalDiameter = Math.max(Math.max(leftInfo.diam, rightInfo.diam), leftInfo.ht + rightInfo.ht);
+
+        return new Info(finalHeight, finalDiameter);
+    }
 }
+
