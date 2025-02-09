@@ -12,7 +12,9 @@ class Driver {
 
         while (t-- > 0) {
             String str = read.readLine();
-            System.out.println(new Reverse().reverseString(str));
+            System.out.println(new Solution().reverseString(str));
+
+            System.out.println("~");
         }
     }
 }
@@ -21,17 +23,16 @@ class Driver {
 
 // User function Template for Java
 
-class Reverse {
-    // Complete the function
-    // str: input string
+class Solution {
     public static String reverseString(String s) {
-        // Reverse the string str
-        StringBuilder sb = new StringBuilder();
-        for(int i=s.length()-1;i>=0;i--){
-            sb.append(s.charAt(i));
+        // code here
+        int n = s.length();
+        
+        String s1 = "";
+        
+        for(int i=n-1;i>=0;i--){
+            s1+=s.charAt(i);
         }
-        
-        return sb.toString();
-        
+        return s1;
     }
 }
