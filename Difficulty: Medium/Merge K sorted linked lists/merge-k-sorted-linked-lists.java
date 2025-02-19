@@ -1,73 +1,72 @@
 //{ Driver Code Starts
 import java.util.*;
 
-class Node
-{
+class Node {
     int data;
     Node next;
-    
-    Node(int key)
-    {
-        data = key;
+
+    Node(int x) {
+        data = x;
         next = null;
     }
 }
 
-
-class GfG
-{
-    public static void printList(Node node)
-    {
-        while(node != null)
-        {
+public class Main {
+    /* Function to print nodes in a given linked list */
+    static void printList(Node node) {
+        while (node != null) {
             System.out.print(node.data + " ");
             node = node.next;
         }
+        System.out.println();
     }
-    
-    public static void main (String[] args) {
-        Scanner sc = new Scanner(System.in);
-        
-        int t = sc.nextInt();
-        while(t-- > 0)
-        {   
-            int N = sc.nextInt();
-            
-            Node []a = new Node[N];
-            
-            for(int i = 0; i < N; i++)
-            {
-                int n = sc.nextInt();
-                
-                Node head = new Node(sc.nextInt());
-                Node tail = head;
-                
-                for(int j=0; j<n-1; j++)
-                {
-                    tail.next = new Node(sc.nextInt());
-                    tail = tail.next;
+
+    // Driver program to test the above functions
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int t = Integer.parseInt(scanner.nextLine());
+
+        while (t-- > 0) {
+            int n = Integer.parseInt(scanner.nextLine());
+            List<Node> lists = new ArrayList<>();
+            for (int i = 0; i < n; i++) {
+                String line = scanner.nextLine();
+                String[] values = line.split(" ");
+                Node head = null, temp = null;
+
+                for (String value : values) {
+                    Node newNode = new Node(Integer.parseInt(value));
+                    if (head == null) {
+                        head = newNode;
+                        temp = head;
+                    } else {
+                        temp.next = newNode;
+                        temp = temp.next;
+                    }
                 }
-                
-                a[i] = head;
+
+                lists.add(head);
             }
-            
-            Solution g = new Solution();
-             
-            Node res = g.mergeKList(a,N);
-            if(res!=null)
-                printList(res);
-            System.out.println();
+
+            Solution sol = new Solution();
+            Node head = sol.mergeKLists(lists);
+
+            printList(head);
+            System.out.println("~");
         }
+        scanner.close();
     }
 }
+
 // } Driver Code Ends
 
 
+// User function Template for Java
 /*class Node
 {
     int data;
     Node next;
-    
+
     Node(int key)
     {
         data = key;
@@ -76,45 +75,33 @@ class GfG
 }
 */
 
-// a is an array of Nodes of the heads of linked lists
-// and N is size of array a
+// arr is an array of Nodes of the heads of linked lists
 
-
-class Solution
-{
-    Node mergeSort(Node head1, Node head2){
-        Node dummyNode = new Node(-1);
-        Node temp = dummyNode;
-        
-        
-        while(head1 != null && head2 != null){
-            if(head1.data <= head2.data){
-                temp.next = head1;
-                head1 = head1.next;
-            }else{
-                temp.next = head2;
-                head2 = head2.next;
-            }
-            temp = temp.next;
-            
-            if(head1 != null){
-                temp.next = head1;
-            }
-            
-            if(head2 != null){
-                temp.next = head2;
-            }
+class Solution {
+    ArrayList<Integer> al;
+    // Function to merge K sorted linked list.
+    Node mergeKLists(List<Node> arr) {
+        // Add your code here.
+        al = new ArrayList<>();
+        for(int i=0;i<arr.size();i++){
+            helper(arr.get(i));
         }
-        return dummyNode.next;
-    }
-    //Function to merge K sorted linked list.
-    Node mergeKList(Node[]arr,int K)
-    {
-        //Add your code here.
-        Node head = arr[0];
-        for(int i=1;i<K;i++){
-            head = mergeSort(head, arr[i]);
+        Collections.sort(al);
+        Node head = new Node(al.get(0));
+        Node temp = head;
+        for(int i=1;i<al.size();i++){
+            Node a = new Node(al.get(i));
+            temp.next = a;
+            temp = a;
         }
         return head;
+    }
+    public void helper(Node head){
+        Node temp = head;
+        while(temp!=null){
+            al.add(temp.data);
+            temp = temp.next;
+        }
+        
     }
 }
